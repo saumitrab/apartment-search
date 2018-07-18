@@ -11,8 +11,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "node-craigslist": "^1.2.2",
-    "node-fetch": "^2.1.2",
-    "unfluff": "^3.0.1"
+    "node-fetch": "^2.1.2"
   },
   "devDependencies": {
     "assertive": "^3.0.0",

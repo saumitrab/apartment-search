@@ -1,0 +1,21 @@
+{
+  "name": "apartmemt-search",
+  "version": "1.0.0",
+  "description": "Config based apartment search on craigslist ",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Saumitra Bhanage <bhanage.saumitra@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "node-craigslist": "^1.2.2",
+    "node-fetch": "^2.1.2",
+    "unfluff": "^3.0.1"
+  },
+  "devDependencies": {
+    "assertive": "^3.0.0",
+    "mocha": "^5.2.0"
+  }
+}

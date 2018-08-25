@@ -1,4 +1,6 @@
-class Posting {
+'use strict';
+
+class Post {
   constructor(price, title, body) {
     this.price = price;
     this.title = title;
@@ -10,4 +12,4 @@ class Posting {
   }
 }
 
-module.exports = Posting;
+module.exports = Post;

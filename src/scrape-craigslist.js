@@ -1,11 +1,12 @@
 const cheerio = require('cheerio');
-const Posting = require('./posting');
+const Post = require('./post');
 const fetch = require('node-fetch');
 const debug = require('debug')('apartment-search:scrape');
+const inspect = require('util');
 
 function scrape(html) {
   const $ = cheerio.load(html);
-  return new Posting($('span.price').text(), $('span#titletextonly').text(), $('#postingbody').text());
+  return new Post($('span.price').text(), $('span#titletextonly').text(), $('#postingbody').text());
 }
 
 async function downloadAndScrape(url) {
@@ -14,8 +15,7 @@ async function downloadAndScrape(url) {
     const html = await data.text();
     return scrape(html);
   } catch (err) {
-    console.log('Error fetching post!');
-    throw err;
+    console.log(`ERROR ${err.message}`);
   }
 }
 

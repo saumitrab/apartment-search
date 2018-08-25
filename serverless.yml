@@ -1,0 +1,13 @@
+service: apartment-search
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+functions:
+  aptsearch:
+    handler: lambda.run
+    events:
+      - http:
+          path: /
+          method: get

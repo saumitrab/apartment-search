@@ -68,7 +68,7 @@ function extractResult(listings) {
   return result;
 }
 
-async function process() {
+async function findApts() {
   try {
     const log = console.log.bind(null, `${new Date().toLocaleString()}:`);
     // TODO make a better sequence of events
@@ -80,10 +80,10 @@ async function process() {
     const filteredListings = contentFilter(updatedListings);
     log(`processing ${filteredListings.length} contentFiltered listings`);
     //filteredListings.forEach(listing => console.log(listing.url));
-    return extractResult;
+    return extractResult(filteredListings);
   } catch (err) {
     console.log(`ERROR ${inspect(err)}`);
   }
 };
 
-process();
+module.exports = findApts;

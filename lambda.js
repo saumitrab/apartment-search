@@ -10,16 +10,16 @@ const ses = new aws.SES({
 function sendEmail(content) {
   const eParams = {
     Destination: {
-      ToAddresses: ["100friends@gmail.com"]
+      ToAddresses: ["100friends@gmail.com", "cyberry.pop@gmail.com"]
     },
     Message: {
       Body: {
         Text: {
-          Data: content.toString()
+          Data: content
         }
       },
       Subject: {
-        Data: "New Apts Alert"
+        Data: `New Apts Alert ${new Date().toLocaleString()}`
       }
     },
     Source: "100friends@gmail.com"
@@ -36,7 +36,11 @@ function sendEmail(content) {
 
 module.exports.run = async (event) => {
   const apts = await findApts();
-  sendEmail(apts);
+  if (apts.length > 0) {
+    sendEmail(apts);
+  } else {
+    console.log('No new apartments found, skipping email');
+  }
   return {
     statusCode: 200,
     body: JSON.stringify(apts),

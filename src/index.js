@@ -5,7 +5,7 @@ const { downloadAndScrape } = require('./scrape-craigslist');
 const inspect = require('util').inspect;
 const debug = require('debug')('index');
 
-const META_FILTER_MINUTES = 500;
+const META_FILTER_MINUTES = 15;
 
 async function getListings() {
   let client = new craigslist.Client({
@@ -41,11 +41,18 @@ function getUTCTimeDiffMins(date) {
   return (currentUTC - date) / (60 * 1000);
 }
 
+function getTimeDiffMins(date) {
+  const current = new Date();
+
+  return (current - date) / (60 * 1000);
+}
+
 function metaFilter(listings) {
   const updatedListings = [];
   // TODO: Filter studio and 1br
   listings.forEach(listing => {
-    if (getUTCTimeDiffMins(new Date(listing.date)) <= META_FILTER_MINUTES) {
+    //console.log(`TZ diff ${getTimeDiffMins(new Date(`${listing.date} PDT`))} for ${new Date(`${listing.date} PDT`)} check ${new Date(listing.date)}`);
+    if (getTimeDiffMins(new Date(`${listing.date} PDT`)) <= META_FILTER_MINUTES) {
       updatedListings.push(listing);
     }
   });
@@ -62,9 +69,11 @@ function contentFilter(listings) {
   return filteredListings;
 }
 
-function extractResult(listings) {
-  const result = [];
-  listings.forEach(listing => result.push(listing.url));
+function formatResult(listings) {
+  let result = "";
+  listings.forEach(listing => {
+    result = result + `${listing.title} ${listing.price} \n${listing.url} \n\n`;
+  });
   return result;
 }
 
@@ -80,7 +89,7 @@ async function findApts() {
     const filteredListings = contentFilter(updatedListings);
     log(`processing ${filteredListings.length} contentFiltered listings`);
     //filteredListings.forEach(listing => console.log(listing.url));
-    return extractResult(filteredListings);
+    return formatResult(filteredListings);
   } catch (err) {
     console.log(`ERROR ${inspect(err)}`);
   }

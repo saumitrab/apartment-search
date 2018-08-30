@@ -1,3 +1,3 @@
 const aptFind = require('./src');
 
-aptFind().then(console.log);
+aptFind().then(({ resultText, stats }) => console.log(resultText));

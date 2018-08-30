@@ -35,9 +35,9 @@ function sendEmail(content) {
 }
 
 module.exports.run = async (event) => {
-  const apts = await findApts();
-  if (apts.length > 0) {
-    sendEmail(apts);
+  const { resultText, stats } = await findApts();
+  if (stats.hits > 0) {
+    sendEmail(resultText);
   } else {
     console.log('No new apartments found, skipping email');
   }

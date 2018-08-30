@@ -8,7 +8,7 @@ class Post {
   }
 
   isNoDogs() {
-    return !!this.body.match(/no pets/i) || !!this.body.match(/no dog/i);
+    return !!this.body.match(/no pets/i) || !!this.body.match(/dogs not allowed/i);
   }
 }
 
